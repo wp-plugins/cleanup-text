@@ -33,7 +33,7 @@ function cleanup_text() {
    $rh_content = func_get_arg(0);
    if ( $num_args > 1) $remove_html = func_get_arg(1);
    
-   if ( $remove_html == TRUE ) 
+   if ( $remove_html ) 
    $rh_content = preg_replace('/<(.|\n)*?>/', '', $rh_content);
 
    // This list converts things like smartquotes into normal quotes, emdashes to minus sign etc.
