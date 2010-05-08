@@ -6,7 +6,7 @@ Requires at least: 1.0.0
 Tested up to: 2.9.2
 Stable tag: 1.0
 
-Function to remove smart quotes, HTML and other special characters from text. Call the function with text as argument, and the function returns the text without special characters.
+Function to remove smart quotes, HTML and other special characters from text. Call the function with text as argument, function returns clean text.
 
 == Description ==
 
