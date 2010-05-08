@@ -23,8 +23,12 @@ It also has an option to remove HTML.
 == Installation ==
 
 1) Copy the file cleanup_text.php to your WordPress plugins directory.
+
 2) Login to WordPress as an administrator, go to Plugins and Activate it.
-3) Call the plugin anywhere in your theme or other PHP code - for example, replace "the_content()" with "cleanup_text( the_content() )"
+
+3) Call the plugin anywhere in your theme or other PHP code.
+
+ E.g. replace "the_content()" with "cleanup_text( the_content() )"
 
 == Frequently Asked Questions ==
 
