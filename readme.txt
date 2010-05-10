@@ -14,7 +14,7 @@ WordPress posts and pages can contain Smart quotes and other fancy characters. B
 
 Instead of using this plugin you could use WordPress filters to reformat text, but WordPress filters cannot be used with PHP functions like strip_tags. If you use a filter to remove Smart quotes you can't also use strip_tags to remove HTML.
 
-Also, WordPress filters don't remove all the characters that could cause problems. For example, double spaces are not removed properly by WordPress, and Europeans will have problems with the Euro and UK pound currency symbols.
+Also, WordPress filters don't remove all the characters that could cause problems. For example, double spaces are not removed properly by WordPress, and Europeans will have problems with the UK pound currency symbol.
 
 This very simple plugin removes all sorts of special characters, including double spaces and currency symbols that WordPress filters don't manage.
 
