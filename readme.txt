@@ -32,18 +32,19 @@ It also has an option to remove HTML.
 
 == Frequently Asked Questions ==
 
-**How do I use the plugin?**
+**How do I use the plugin?**<br />
 Call the function cleanup_text() from within your theme or other plugin. Supply the text to be cleaned as the first argument.
 E.g. `<?php $clean_text = cleanup_text( $text_to_clean ) ; ?>`
 
-**How do I get the plugin to remove HTML?**
-Call the function with TRUE as the second argument.
+**How do I get the plugin to remove HTML?**<br />
+Call the function with TRUE as the second argument.<br />
 E.g. `<?php $clean_text = cleanup_text( $text_to_clean, TRUE) ;  ?>`
 
-**Can I use cleanup_text for web pages?**
+**Can I use cleanup_text for web pages?**<br />
 Yes, you could use cleanup_text to clean text that will be displayed on a web page.
 
-You should probably use something like `<php echo cleanup_text( get_the_content() ) ; ?>`
+You would probably use something like<br />
+`<php echo cleanup_text( get_the_content() ) ; ?>`
 
 But the results will probably not be what you want because cleanup_text uses "\n" for new lines, and web pages use `<br />` or some other HTML notation.
 
