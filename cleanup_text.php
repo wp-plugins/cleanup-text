@@ -5,7 +5,7 @@ Description: Remove special characters such as smartquotes and double spaces fro
 Author: Roger Howorth
 Author URI: http://www.thehypervisor.com
 Plugin URI: http://www.thehypervisor.com/cleanup-text/
-Version: 1.0
+Version: 1.0.1
 
 License: GPL2
 
@@ -45,8 +45,6 @@ function cleanup_text() {
                 '&#38;' => '&amp;',
                 '&#8230;' => '...',
                 '&#8211;' => '-',
-                '’' => '\'',
-                '–' => '-',
                 '&#8212;' => '-');
    foreach ($phase1_array as $target => $replacement ) {
      $rh_content = str_replace($target, $replacement, $rh_content);
@@ -73,7 +71,7 @@ function cleanup_text() {
                 '/\!/m' => '_PLING_',
                 '/\./m' => '_STOP_',
                 '/£/m' => '_POUND_',
-                '/€/m' => '_EURO_',
+                '/¿/m' => '_EURO_',
    // Keep the last element as the last one, it does a special job
                 '/\W/m' => '');
    foreach ($phase2_array as $target => $replacement ) {
