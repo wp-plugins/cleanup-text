@@ -41,7 +41,11 @@ Call the function with TRUE as the second argument.
 E.g. `<?php $clean_text = cleanup_text( $text_to_clean, TRUE) ;  ?>`
 
 **Can I use cleanup_text for web pages?**
-Yes, you could use cleanup_text to clean text that will be displayed on a web page, but the results will probably not be what you want because cleanup_text uses "\n" for new lines, and web pages use <br /> or some other HTML notation.
+Yes, you could use cleanup_text to clean text that will be displayed on a web page.
+
+You should probably use something like `<php echo cleanup_text( get_the_content() ) ; ?>`
+
+But the results will probably not be what you want because cleanup_text uses "\n" for new lines, and web pages use <br /> or some other HTML notation.
 
 If you really want to do this let me know and I'll update the plugin so it can be used in this way.
 
