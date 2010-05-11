@@ -42,7 +42,7 @@ E.g. `<?php $clean_text = cleanup_text( $text_to_clean, TRUE) ;  ?>`
 
 **Can I use cleanup_text for web pages?**<br />
 Yes, you could use cleanup_text to clean text that will be displayed on a web page. You would probably use something like:<br />
-`<?php echo cleanup_text( get_the_content() ) ; ?>`
+E.g. `<?php echo cleanup_text( get_the_content() ) ; ?>`
 
 But the results will probably not be what you want because cleanup_text uses "\n" for new lines, and web pages use `<br />` or some other HTML notation.
 
