@@ -5,7 +5,7 @@ Description: Remove special characters such as smartquotes and double spaces fro
 Author: Roger Howorth
 Author URI: http://www.thehypervisor.com
 Plugin URI: http://www.thehypervisor.com/cleanup-text/
-Version: 1.0.1
+Version: 2.0.0
 
 License: GPL2
 
@@ -30,81 +30,25 @@ function cleanup_text() {
    $num_args = func_num_args();
    if ( $num_args == '0' )
       wp_die('You must pass some text to cleanup_text when you invoke the function. E.g. cleanup_text($string_to_clean)');
-   $rh_content = func_get_arg(0);
+   $text = func_get_arg(0);
    if ( $num_args > 1) $remove_html = func_get_arg(1);
-   
-   if ( $remove_html ) 
-   $rh_content = preg_replace('/<(.|\n)*?>/', '', $rh_content);
-
-   // This list converts things like smartquotes into normal quotes, emdashes to minus sign etc.
-   $phase1_array = array(
-                '&#8220;' => '&quot;',
-                '&#8221;' => '&quot;',
-                '&#8216;' => '\'',
-                '&#8217;' => '\'',
-                '&#38;' => '&amp;',
-                '&#8230;' => '...',
-                '&#8211;' => '-',
-                '&#8212;' => '-');
-   foreach ($phase1_array as $target => $replacement ) {
-     $rh_content = str_replace($target, $replacement, $rh_content);
-     }
-   // This converts characters we want to preserve into _TAGS_
-   $phase2_array = array(
-                '/\s\s/m' => '_NEWLN_',
-                '/\s/m' => '_SPACE_',
-                '/>/m' => '_GREATER_',
-                '/</m' => '_LESS_',
-                '/=/m' => '_EQ_',
-                '/\+/m' => '_PLUS_',
-                '/\&/m' => '_AMPERSAND_',
-                '/\//m' => '_BACKSL_',
-                '/:/m' => '_COLON_',
-                '/\)/m' => '_CBRACKET_',
-                '/\(/m' => '_OBRACKET_',
-                '/\'/m' => '_APOST_',
-                '/\"/m' => '_QUOTE_',
-                '/-/m' => '_DASH_',
-                '/@/m' => '_AT_',
-                '/,/m' => '_COMMA_',
-                '/\?/m' => '_QUIZ_',
-                '/\!/m' => '_PLING_',
-                '/\./m' => '_STOP_',
-                '/£/m' => '_POUND_',
-                '/¿/m' => '_EURO_',
-   // Keep the last element as the last one, it does a special job
-                '/\W/m' => '');
-   foreach ($phase2_array as $target => $replacement ) {
-     $rh_content = preg_replace($target, $replacement, $rh_content);
-     }
-   // Now we restore the original text using the _TAGS_
-   $phase3_array = array(
-                '/_POUND_/m' => 'Pounds:',
-                '/_EURO_/m' => 'Euro:',
-                '/_SPACE__SPACE_/' => '_SPACE_',
-                '/_SPACE_/m' => ' ',
-                '/_COMMA_/m' => ',',
-                '/_STOP_/m' => '.',
-                '/_CBRACKET_/m' => ')',
-                '/_OBRACKET_/m' => '(',
-                '/_GREATER_/m' => '>',
-                '/_LESS_/m' => '<',
-                '/_EQ_/m' => '=',
-                '/_PLUS_/m' => '+',
-                '/_AMPERSAND_/m' => '&',
-                '/_COLON_/m' => ':',
-                '/_AT_/m' => '@',
-                '/_PLING_/m' => '!',
-                '/_QUIZ_/m' => '?',
-                '/_BACKSL_/m' => '/',
-                '/_DASH_/m' => '-',
-                '/_APOST_/m' => '\'',
-                '/_QUOTE_/m' => '"',
-                '/_NEWLN_/m' => "\n");
-
-   foreach ($phase3_array as $target => $replacement ) {
-     $rh_content = preg_replace($target, $replacement, $rh_content);
-     }
-   return $rh_content;
+   if ( $remove_html ) $text = preg_replace('/<(.|\n)*?>/', '', $text);
+	$text = strip_shortcodes( $text );
+	remove_filter( 'the_content', 'wptexturize' );
+	$text = apply_filters('the_content', $text);
+	add_filter( 'the_content', 'wptexturize' );
+	$text = str_replace(']]>', ']]&gt;', $text);
+	$text = wp_strip_all_tags($text);
+	$text = str_replace(array("\r\n","\r","\n"),"\n\n",$text);
+	$excerpt_length = apply_filters('excerpt_length', 1000);
+	$excerpt_more = apply_filters('excerpt_more', '[...]');
+	$words = explode(' ', $text, $excerpt_length + 1);
+	if (count($words) > $excerpt_length) {
+		array_pop($words);
+		array_push($words, $excerpt_more);
+		$text = implode(' ', $words);
+	}
+	$text = html_entity_decode($text); // added to try to fix annoying &entity; stuff
+	return $text;
 }
 ?>
