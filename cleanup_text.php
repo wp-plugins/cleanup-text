@@ -33,6 +33,26 @@ function cleanup_text() {
    $text = func_get_arg(0);
    if ( $num_args > 1) $remove_html = func_get_arg(1);
    if ( $remove_html ) $text = preg_replace('/<(.|\n)*?>/', '', $text);
+
+
+   // This list converts things like smartquotes into normal quotes, emdashes to minus sign etc.
+   // It wil catch things like emdash not handled by above code
+   $phase1_array = array(
+                '&#8220;' => '&quot;',
+                '&#8221;' => '&quot;',
+                '‘' => '\'',
+                '’' => '\'',
+                '&#8216;' => '\'',
+                '&#8217;' => '\'',
+                '&#38;' => '&amp;',
+                '&#8230;' => '...',
+                '&#8211;' => '-',
+                '&#8212;' => '-');
+   foreach ($phase1_array as $target => $replacement ) {
+     $text = str_replace($target, $replacement, $text);
+     }
+
+
 	$text = strip_shortcodes( $text );
 	remove_filter( 'the_content', 'wptexturize' );
 	$text = apply_filters('the_content', $text);
@@ -48,7 +68,10 @@ function cleanup_text() {
 		array_push($words, $excerpt_more);
 		$text = implode(' ', $words);
 	}
+
+
 	$text = html_entity_decode($text); // added to try to fix annoying &entity; stuff
+
 	return $text;
 }
 ?>
