@@ -5,7 +5,7 @@ Description: Remove special characters such as smartquotes and double spaces fro
 Author: Roger Howorth
 Author URI: http://www.thehypervisor.com
 Plugin URI: http://www.thehypervisor.com/cleanup-text/
-Version: 2.0.0
+Version: 2.0.1
 
 License: GPL2
 
@@ -60,7 +60,7 @@ function cleanup_text() {
 	$text = str_replace(']]>', ']]&gt;', $text);
 	$text = wp_strip_all_tags($text);
 	$text = str_replace(array("\r\n","\r","\n"),"\n\n",$text);
-	$excerpt_length = apply_filters('excerpt_length', 1000);
+/*	$excerpt_length = apply_filters('excerpt_length', 1000);
 	$excerpt_more = apply_filters('excerpt_more', '[...]');
 	$words = explode(' ', $text, $excerpt_length + 1);
 	if (count($words) > $excerpt_length) {
@@ -68,7 +68,7 @@ function cleanup_text() {
 		array_push($words, $excerpt_more);
 		$text = implode(' ', $words);
 	}
-
+*/
 
 	$text = html_entity_decode($text); // added to try to fix annoying &entity; stuff
 

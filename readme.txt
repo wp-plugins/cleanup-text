@@ -4,7 +4,7 @@ Donate link: http://www.rogerh.com/donate.html
 Tags: Filter, Smart Quotes, HTML, Special Characters
 Requires at least: 1.0.0
 Tested up to: 3.0.0
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 
 Function to remove smart quotes, HTML and other special characters from text. Call the function with text as argument, function returns clean text.
 
